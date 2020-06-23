@@ -1,0 +1,15 @@
+{
+    "name": "hananils/kirby-tracker",
+    "description": "Tracks content changes in Kirby 3.",
+    "type": "kirby-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "hana+nils · Büro für Gestaltung",
+            "email": "buero@hananils.de"
+        }
+    ],
+    "require": {
+        "getkirby/composer-installer": "^1.1"
+    }
+}
