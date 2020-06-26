@@ -122,4 +122,9 @@ class Track
     {
         return $this->value();
     }
+
+    public function __debugInfo()
+    {
+        return $this->toArray();
+    }
 };
