@@ -97,9 +97,11 @@ class Track
             return null;
         }
 
-        if ($this->status() === 1) {
+        $status = intval($this->status());
+
+        if ($status === 1) {
             return 'added';
-        } else if ($this->status() === -1) {
+        } else if ($status === -1) {
             return 'removed';
         }
 
