@@ -28,7 +28,7 @@ class Track
 
     public function hasColumn($column)
     {
-        return $this->content->$column ? true : false;
+        return isset($this->content->$column) ? true : false;
     }
 
     public function isValid()
