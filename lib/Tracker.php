@@ -76,7 +76,10 @@ class Tracker
 
                 foreach ($all as $kid) {
                     $status = 0;
-                    if (in_array($kid, $added)) {
+
+                    if ($old === null) {
+                        $status = 1;
+                    } elseif (in_array($kid, $added)) {
                         $status = 1;
                     } elseif (in_array($kid, $removed)) {
                         $status = -1;
@@ -87,12 +90,6 @@ class Tracker
                         'status' => $status
                     ];
                 }
-            }
-        }
-
-        if ($old === null) {
-            foreach ($references as $key => $reference) {
-                $references[$key]['status'] = 1;
             }
         }
 
