@@ -1,10 +1,13 @@
 <?php
 
-load([
-    'Hananils\\Tracker' => 'lib/Tracker.php',
-    'Hananils\\TracksCollection' => 'lib/TracksCollection.php',
-    'Hananils\\Track' => 'lib/Track.php'
-], __DIR__);
+load(
+    [
+        'Hananils\\Tracker' => 'lib/Tracker.php',
+        'Hananils\\TracksCollection' => 'lib/TracksCollection.php',
+        'Hananils\\Track' => 'lib/Track.php'
+    ],
+    __DIR__
+);
 
 Kirby::plugin('hananils/tracker', [
     'options' => [
@@ -22,7 +25,8 @@ Kirby::plugin('hananils/tracker', [
         'notifications' => function ($limit = 20) {
             $notifications = new Hananils\TracksCollection('notifications');
             return $notifications->limit($limit);
-        }],
+        }
+    ],
     'pageMethods' => [
         'tracks' => function ($limit = 20) {
             $tracks = new Hananils\TracksCollection();
@@ -30,7 +34,9 @@ Kirby::plugin('hananils/tracker', [
         },
         'notifications' => function ($limit = 20) {
             $notifications = new Hananils\TracksCollection('notifications');
-            return $notifications->filterBy('kid', '=', $this->id())->limit($limit);
+            return $notifications
+                ->filterBy('kid', '=', $this->id())
+                ->limit($limit);
         }
     ],
     'userMethods' => [
@@ -40,13 +46,21 @@ Kirby::plugin('hananils/tracker', [
         },
         'notifications' => function ($limit = 20) {
             $notifications = new Hananils\TracksCollection('notifications');
-            return $notifications->filterBy('kid', '=', $this->id())->limit($limit);
+            return $notifications
+                ->filterBy('kid', '=', $this->id())
+                ->limit($limit);
         }
     ],
     'hooks' => [
         'file.changeName:after' => function ($newFile, $oldFile) {
             $tracker = new Hananils\Tracker();
-            $tracker->track('file', 'changeName', $newFile, $oldFile, 'filename');
+            $tracker->track(
+                'file',
+                'changeName',
+                $newFile,
+                $oldFile,
+                'filename'
+            );
         },
         'file.changeSort:after' => function ($newFile, $oldFile) {
             $tracker = new Hananils\Tracker();
@@ -78,15 +92,35 @@ Kirby::plugin('hananils/tracker', [
         },
         'page.changeStatus:after' => function ($newPage, $oldPage) {
             $tracker = new Hananils\Tracker();
-            $tracker->track('page', 'changeStatus', $newPage, $oldPage, 'status');
+            $tracker->track(
+                'page',
+                'changeStatus',
+                $newPage,
+                $oldPage,
+                'status'
+            );
         },
         'page.changeTemplate:after' => function ($newPage, $oldPage) {
             $tracker = new Hananils\Tracker();
-            $tracker->track('page', 'changeTemplate', $newPage, $oldPage, 'template', 'name');
+            $tracker->track(
+                'page',
+                'changeTemplate',
+                $newPage,
+                $oldPage,
+                'template',
+                'name'
+            );
         },
         'page.changeTitle:after' => function ($newPage, $oldPage) {
             $tracker = new Hananils\Tracker();
-            $tracker->track('page', 'changeTitle', $newPage, $oldPage, 'title', 'value');
+            $tracker->track(
+                'page',
+                'changeTitle',
+                $newPage,
+                $oldPage,
+                'title',
+                'value'
+            );
         },
         'page.create:after' => function ($page) {
             $tracker = new Hananils\Tracker();

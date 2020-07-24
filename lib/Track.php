@@ -33,7 +33,7 @@ class Track
 
     public function isValid()
     {
-        return ($this->toReference() !== null);
+        return $this->toReference() !== null;
     }
 
     public function toUser()
@@ -101,7 +101,7 @@ class Track
 
         if ($status === 1) {
             return 'added';
-        } else if ($status === -1) {
+        } elseif ($status === -1) {
             return 'removed';
         }
 
@@ -127,4 +127,4 @@ class Track
     {
         return $this->toArray();
     }
-};
+}

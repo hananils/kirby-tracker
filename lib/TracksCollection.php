@@ -151,7 +151,7 @@ class TracksCollection implements Iterator, Countable
                 return $this->normalize($item);
             } elseif (is_object($item) && method_exists($item, 'toArray')) {
                 return $item->toArray();
-            };
+            }
         }, $data);
     }
 

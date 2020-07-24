@@ -19,15 +19,33 @@ class Tracker
         $this->createNotifications();
     }
 
-    public function track($model = 'page', $action = 'update', $new = null, $old = null, $field = true, $toString = null)
-    {
-        if (!$action || in_array($action, option('hananils.tracker.excluded')) || option('hananils.tracker.' . $model) !== true) {
+    public function track(
+        $model = 'page',
+        $action = 'update',
+        $new = null,
+        $old = null,
+        $field = true,
+        $toString = null
+    ) {
+        if (
+            !$action ||
+            in_array($action, option('hananils.tracker.excluded')) ||
+            option('hananils.tracker.' . $model) !== true
+        ) {
             return;
         }
 
-        $user = kirby()->user()->id();
-        $kid = $new->id();
-        $changes = $this->diff($new, $old, $field, $toString);
+        $user = kirby()
+            ->user()
+            ->id();
+
+        if ($new) {
+            $kid = $new->id();
+            $changes = $this->diff($new, $old, $field, $toString);
+        } else {
+            $kid = $old->id();
+            $changes = null;
+        }
 
         $data = [
             'user' => $user,
@@ -67,8 +85,18 @@ class Tracker
             if (in_array($field['type'], ['pages', 'files', 'users'])) {
                 $name = $field['name'];
 
-                $before = $old ? $old->content()->get($name)->yaml() : [];
-                $after = $new ? $new->content()->get($name)->yaml() : [];
+                $before = $old
+                    ? $old
+                        ->content()
+                        ->get($name)
+                        ->yaml()
+                    : [];
+                $after = $new
+                    ? $new
+                        ->content()
+                        ->get($name)
+                        ->yaml()
+                    : [];
 
                 $all = array_values($before) + array_values($after);
                 $added = array_diff($after, $before);
@@ -105,7 +133,10 @@ class Tracker
             $old = $old->content->data();
 
             foreach ($new as $field => $value) {
-                if (isset($old[$field]) && trim($old[$field]) !== trim($value)) {
+                if (
+                    isset($old[$field]) &&
+                    trim($old[$field]) !== trim($value)
+                ) {
                     $fields[] = $field;
                 }
             }
