@@ -3,6 +3,7 @@
 namespace Hananils;
 
 use Kirby\Database\Database;
+use F;
 
 class Tracker
 {
@@ -10,9 +11,15 @@ class Tracker
 
     public function __construct()
     {
+        $file = kirby()->root('site') . '/logs/tracker.sqlite';
+
+        if (!F::exists($file)) {
+            F::write($file, '');
+        }
+
         $this->database = new Database([
             'type' => 'sqlite',
-            'database' => kirby()->root('site') . '/logs/tracker.sqlite'
+            'database' => $file
         ]);
 
         $this->createTracks();
