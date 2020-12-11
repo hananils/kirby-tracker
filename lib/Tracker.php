@@ -46,6 +46,14 @@ class Tracker
             ->user()
             ->id();
 
+        if (option('hananils.tracker.randomUser') === true) {
+            $user = kirby()
+                ->users()
+                ->shuffle()
+                ->first()
+                ->id();
+        }
+
         if ($new) {
             $kid = $new->id();
             $changes = $this->diff($new, $old, $field, $toString);
