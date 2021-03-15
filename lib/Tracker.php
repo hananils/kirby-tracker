@@ -90,7 +90,7 @@ class Tracker
 
     private function references($new = null, $old = null)
     {
-        if (!method_exists($new, 'blueprint')) {
+        if (!$new || !method_exists($new, 'blueprint')) {
             return;
         }
 
