@@ -6,6 +6,7 @@ use Countable;
 use Iterator;
 use Kirby\Database\Database;
 use Kirby\Database\Query;
+use Hananils\Tracker;
 
 class TracksCollection implements Iterator, Countable
 {
@@ -23,10 +24,8 @@ class TracksCollection implements Iterator, Countable
 
     public function __construct($table = 'tracks')
     {
-        $this->database = new Database([
-            'type' => 'sqlite',
-            'database' => kirby()->root('site') . '/logs/tracker.sqlite'
-        ]);
+        $tracker = new Tracker();
+        $this->database = $tracker->toDatabase();
         $this->table = $table;
     }
 

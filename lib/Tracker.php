@@ -198,4 +198,9 @@ class Tracker
             );');
         }
     }
+
+    public function toDatabase()
+    {
+        return $this->database;
+    }
 }
