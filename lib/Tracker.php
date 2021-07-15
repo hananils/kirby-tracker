@@ -157,10 +157,14 @@ class Tracker
             }
         } elseif ($field !== false) {
             if ($toString) {
-                $fields[] = $old->{$field}()->{$toString}();
+                if (!empty($old)) {
+                    $fields[] = $old->{$field}()->{$toString}();
+                }
                 $fields[] = $new->{$field}()->{$toString}();
             } else {
-                $fields[] = $old->{$field}();
+                if (!empty($old)) {
+                    $fields[] = $old->{$field}();
+                }
                 $fields[] = $new->{$field}();
             }
         }
