@@ -144,8 +144,8 @@ class Tracker
         $fields = [];
 
         if ($field === true) {
-            $new = $new->content->data();
-            $old = $old->content->data();
+            $new = $new->content()->data();
+            $old = $old->content()->data();
 
             foreach ($new as $field => $value) {
                 if (
