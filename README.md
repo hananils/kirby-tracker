@@ -1,12 +1,36 @@
-# Kirby Tracker WIP
+![Kirby Tracker](.github/title.png)
 
-Track content changes in Kirby 3.
+**Tracker** is a plugin for [Kirby 3](https://getkirby.com) to track content changes and create panel logs or front-end notifications in member areas.
 
 ## On privacy
 
 **Before using this plugin, please think about the privacy implications.** You will be processing personal data of your users: their name, the date of their change and meta information about their change. This requires you to follow the privacy laws in your jurisdiction. Please consult a lawyer in case of doubt.
 
 This plugin was initially conceived to create a dashboard for a private members area where all users consented to share their changes with the other users.
+
+## Example
+
+```php
+<?php
+$notifications = new Hananils\TracksCollection('notifications');
+$notifications
+  ->filterBy('datetime', '>=', $start->format('Y-m-d'))
+  ->sortBy('datetime', 'asc')
+  ->limit(10);
+?>
+
+<h1>Recent changes</h1>
+<ol>
+<?php foreach ($notification as $notification): ?>
+    <li>
+        <?= $notification
+          ->track()
+          ->toReference()
+          ->title() ?>
+    </li>
+<?php endforeach; ?>
+</ol>
+```
 
 ## Installation
 
@@ -26,11 +50,11 @@ git submodule add https://github.com/hananils/kirby-tracker.git site/plugins/tra
 composer require hananils/kirby-tracker
 ```
 
-## Tracked data
+# Tracked data
 
 Tracker will create a SQLite datebase in `site/logs/tracker.sqlite`. It will create two tables:
 
-### tracks
+## tracks
 
 Tracker will create a log of all change in this database:
 
@@ -42,7 +66,7 @@ Tracker will create a log of all change in this database:
 - `action`: the name of the action, referring to the Kirby hook, see https://getkirby.com/docs/reference/plugins/hooks
 - `changes`: meta information about the change, e. g. the field names affected or the page status before and after
 
-### notifications
+## notifications
 
 Tracker will also create a list of all related pages, users and files that are affected by a change:
 
@@ -52,33 +76,45 @@ Tracker will also create a list of all related pages, users and files that are a
 - `track`: the tracked change
 - `status`: whether the page, user or file has been added, untouched or removed as reference
 
-## Usage
+# Usage
 
-### $site->tracks($limit)
+## $site->tracks($limit)
 
-Returns a `TracksCollection` of all changes of all users, defaults to 20 entries.
+Returns a `TracksCollection` of all changes of all users.
 
-### $site->notifications($limit)
+**`$limit`:** limit, defaults to 20 entries.
 
-Returns a `TracksCollection` of all notifications, defaults to 20 entries.
+## $site->notifications($limit)
 
-### $page->tracks($limit)
+Returns a `TracksCollection` of all notifications.
 
-Returns a `TracksCollection` of all changes on the given page, defaults to 20 entries.
+**`$limit`:** limit, defaults to 20 entries.
 
-### $page->notifications($limit)
+## $page->tracks($limit)
 
-Returns a `TracksCollection` of all notifications for the given page, defaults to 20 entries.
+Returns a `TracksCollection` of all changes on the given page.
 
-### $user->tracks($limit)
+**`$limit`:** limit, defaults to 20 entries.
 
-Returns a `TracksCollection` of all changes for the given user, defaults to 20 entries.
+## $page->notifications($limit)
 
-### $user->notifications($limit)
+Returns a `TracksCollection` of all notifications for the given page.
 
-Returns a `TracksCollection` of all notifications for the given user, defaults to 20 entries.
+**`$limit`:** limit, defaults to 20 entries.
 
-### TracksCollection
+## $user->tracks($limit)
+
+Returns a `TracksCollection` of all changes for the given user.
+
+**`$limit`:** limit, defaults to 20 entries.
+
+## $user->notifications($limit)
+
+Returns a `TracksCollection` of all notifications for the given user.
+
+**`$limit`:** limit, defaults to 20 entries.
+
+# TracksCollection
 
 The plugin provides a `TracksCollection` you can use to query, filter and output tracking information:
 
@@ -87,80 +123,83 @@ $tracks = new Hananils\TracksCollection();
 $notifications = new Hananils\TracksCollection('notifications');
 ```
 
-#### filterBy($column, $comparison, \$value)
+## filterBy($column, $method, $value)
 
 Applies a filter to the output.
 
-#### limit(\$limit)
+**`$column`:** the table column.
+**`$method`:** filter method.
+**`$value`:** filter value.
 
-Limits the number of returned tracks, defaults to 20.
+## limit($limit)
 
-#### offset(\$offset)
+Limits the number of returned tracks.
+
+**`$limit`:** limit, defaults to 20 entries.
+
+## offset($offset)
 
 Applies and offset to the result.
 
-#### sortBy()
+**`$offset`:** entry offset.
+
+## sortBy()
 
 Sorts the results.
 
-#### validate()
+## validate()
 
 Makes sure that only tracks for existing pages, users and files are returned, excluding those deleted in the meantime.
 
-#### toArray()
+## toArray()
 
 Returns the result as an array
 
-### Track
+# Track
 
 Each item of the `TrackCollection` is a `Track` object:
 
-#### isValid()
+## isValid()
 
 Returns `true` is the referenced Kirby object exists, otherwise `false`.
 
-#### toUser()
+## toUser()
 
 Returns the Kirby user object.
 
-#### toReference()
+## toReference()
 
 Returns the Kirby object of the given reference, either the changed page, user or file.
 
-#### toDate(\$format)
+## toDate($format)
 
 Returns either the `DateTime` representation of the track or – if a format was provided – the formatted date.
 
-#### toTrack()
+**`$format`:** a PHP-readable date format.
+
+## toTrack()
 
 Returns the related track for a notification.
 
-#### toStatus()
+## toStatus()
 
 Returns the status of a notified reference, either `added`, `unchanged` or `removed`.
 
-#### value()
+## value()
 
-Return the value of the track.
+Returns the value of the track.
 
-#### toArray()
+## toArray()
 
 Returns an array representation of the track.
 
-## To Do
+# To Do
 
 - Create Panel sections for tracks and notifications
 - Make `TracksCollection` use Kirby's collection classes.
 - Make `TracksCollection` groupable by fields.
 
-## License
+# License
 
-MIT
-
-## Credits
-
-- hana+nils · Büro für Gestaltung
-
-```
-
-```
+This plugin is provided freely under the [MIT license](LICENSE.md) by [hana+nils · Büro für Gestaltung](https://hananils.de).
+We create visual designs for digital and analog media.
