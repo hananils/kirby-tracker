@@ -148,7 +148,13 @@ Kirby::plugin('hananils/tracker', [
         },
         'user.changeLanguage:after' => function ($newUser, $oldUser) {
             $tracker = new Hananils\Tracker();
-            $tracker->track('user', 'changeLanguage', $new, $old, 'language');
+            $tracker->track(
+                'user',
+                'changeLanguage',
+                $newUser,
+                $oldUser,
+                'language'
+            );
         },
         'user.changeName:after' => function ($newUser, $oldUser) {
             $tracker = new Hananils\Tracker();
