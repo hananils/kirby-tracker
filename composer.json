@@ -3,6 +3,7 @@
     "description": "Tracks content changes in Kirby 3.",
     "type": "kirby-plugin",
     "license": "MIT",
+    "version": "1.0.1",
     "authors": [
         {
             "name": "hana+nils · Büro für Gestaltung",
