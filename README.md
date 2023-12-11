@@ -21,7 +21,7 @@ $notifications
 
 <h1>Recent changes</h1>
 <ol>
-<?php foreach ($notification as $notification): ?>
+<?php foreach ($notifications as $notification): ?>
     <li>
         <?= $notification
           ->track()
