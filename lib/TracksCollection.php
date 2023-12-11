@@ -94,7 +94,7 @@ class TracksCollection implements Iterator, Countable
         }
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         $this->fetch();
 
@@ -106,18 +106,18 @@ class TracksCollection implements Iterator, Countable
         }
     }
 
-    public function current()
+    public function current(): mixed
     {
         $this->fetch();
         return $this->data[$this->key];
     }
 
-    public function key()
+    public function key(): mixed
     {
         return $this->key;
     }
 
-    public function next()
+    public function next(): void
     {
         $this->fetch();
 
@@ -131,13 +131,13 @@ class TracksCollection implements Iterator, Countable
         }
     }
 
-    public function valid()
+    public function valid(): bool
     {
         $this->fetch();
         return isset($this->data[$this->key]);
     }
 
-    public function count()
+    public function count(): int
     {
         $this->fetch();
         return count($this->data);
