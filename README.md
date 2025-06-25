@@ -2,6 +2,10 @@
 
 **Tracker** is a plugin for [Kirby 3](https://getkirby.com) to track content changes and create panel logs or front-end notifications in member areas.
 
+> [!NOTE]
+> **There is a large update coming for Kirby 5 this fall:**  
+> Please check out [kirby.hananils.de/plugins/tracker](https://kirby.hananils.de/plugins/tracker) for further information.
+
 ## On privacy
 
 **Before using this plugin, please think about the privacy implications.** You will be processing personal data of your users: their name, the date of their change and meta information about their change. This requires you to follow the privacy laws in your jurisdiction. Please consult a lawyer in case of doubt.
